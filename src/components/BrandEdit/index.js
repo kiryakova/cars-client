@@ -29,7 +29,7 @@ const BrandEdit = ({
     //const [models, setModels] = useState([]);
     //const [currentBrandId, setCurrentBrandId] = useState('');
     const [currentHeaderItem, setCurrentHeaderItem] = useContext(PageContext);
-    setCurrentHeaderItem(3);
+    setCurrentHeaderItem(currentHeaderItem);
 
     useEffect(async() => {
 

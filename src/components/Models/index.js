@@ -1,77 +1,72 @@
-//import {CATEGORIES_MENU_ITEMS } from '../NavigationCategories/CategoriesMenuItems';
-
 import style from './styles.module.css';
 
 import requester from '../../services/rest-app-service';
 
 import { useEffect, useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
-//import {List} from 'react-virtualized';
 
-import Notification from '../Notification';
-
-import Brand from '../Brand';
+import Model from '../Model';
 import SearchMenu from '../SearchMenu';
 
 import {PageContext} from '../../ContextWrapper';
 
-const Brands = () => {
+const Models = () => {
     const numRecordsPerPage = 5;
-    const [brands, setBrands] = useState([]);
+    const [models, setModels] = useState([]);
     const [offset, setOffset] = useState(0);
     const [limit, setLimit] = useState(numRecordsPerPage);
     const [currentBrandItem, setCurrentBrandItem] = useState('');
-    
-    //const [currentModelItem, setCurrentModelItem] = useState('');
+    const [currentModelItem, setCurrentModelItem] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [isDeleted, setIsDeleted] = useState(false);
     const [hasCreateButton, setHasCreateButton] = useState(false);
     const [notification, setNotification] = useState('');
     const [currentHeaderItem, setCurrentHeaderItem] = useContext(PageContext);
-    setCurrentHeaderItem(currentHeaderItem);
+    setCurrentHeaderItem(4);
 
     useEffect(() => {
         try{
-            //getBrands(currentBrandItem);
-            getBrands();
+            getModels();
         }
         catch(e){
-            setNotification('There are no brands!');
+            setNotification('There are no models!');
         };
 
-    }, [currentBrandItem, isDeleted])
+    }, [currentBrandItem, currentModelItem, isDeleted])
     
-    const getBrands = () => {
+    const getModels = () => {
 
-        requester.dataSet.getAll('brands', currentBrandItem)
+        requester.dataSet.getAll('models', currentBrandItem, currentModelItem)
         .then(res => {
 
             if(res.length > 0){
                 //console.log(res);
-                setBrands(res);
+                setModels(res);
                 setNotification('');
             }
             else{
-                setBrands([]);
-                setNotification('There are no such brand!');
+                setModels([]);
+                setNotification('There are no models by selected criteria!');
             }
             
             setIsLoading(true);
-            //setCurrentBrand(brand);
             setCurrentBrandItem(currentBrandItem);
             setHasCreateButton(true);
         })
         .catch(() => {
             setIsLoading(true);
             setNotification('There are no result from the server!');
-            //history.push(`/error`);
         });
 
     }
 
     const searchBrandClickHandler = (id) => {
         setCurrentBrandItem(id);
-        //console.log(currentBrandItem);
+        setCurrentModelItem('');
+    }
+
+    const searchModelClickHandler = (id) => {
+        setCurrentModelItem(id);
     }
 
     const showPrevious = () => {
@@ -88,34 +83,35 @@ const Brands = () => {
         <div className={style.container}>
 
             <SearchMenu currentBrandItem={currentBrandItem} searchBrandClickHandler={searchBrandClickHandler} 
+                        searchModelClickHandler={searchModelClickHandler}
             />
 
             {hasCreateButton
             ? 
-            <div className={style['button-create-brand-wrapper']}>
-                <Link to={`/brands/create`}><button>Add New Brand</button></Link>
+            <div className={style['button-create-model-wrapper']}>
+                <Link to={`/models/create`}><button>Add New Model</button></Link>
             </div>
             : ''}
 
-            {((!brands || brands.length == 0) && isLoading) ? (
+            {((!models || models.length == 0) && isLoading) ? (
                 <h3 className={style['message']}>{notification}</h3>
             ) : '' }
 
             <h1>{!isLoading ? 'Loading...' : ``}</h1>
             
-            <ul className={style['container-brands']}>
+            <ul className={style['container-models']}>
                 
-                {brands.slice(offset,limit).map((brand) => 
-                    <Brand key={brand.id} brandObj={brand} setIsDeleted={setIsDeleted} />
+                {models.slice(offset,limit).map((model) => 
+                    <Model key={model.id} modelObj={model} categoryId={currentBrandItem} setIsDeleted={setIsDeleted} />
                 )}
             </ul>
             
             <div className={style['button-wraper-prev-next']}>
             {offset != 0 ? <button className={style['button-prev']} onClick={showPrevious}>Prev {numRecordsPerPage}</button> : ''}
-            {limit < brands.length ? <button className={style['button-next']} onClick={showNext}>Next {numRecordsPerPage}</button> : ''}
+            {limit < models.length ? <button className={style['button-next']} onClick={showNext}>Next {numRecordsPerPage}</button> : ''}
             </div>
         </div>
     );
 }
 
-export default Brands;
+export default Models;

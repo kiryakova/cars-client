@@ -9,7 +9,7 @@
   
 }
 
-.container .button-create-brand-wrapper button {
+.container .button-create-model-wrapper button {
   width: 100%;
   padding: 7px 21px;
   border-radius: 3px;
@@ -41,7 +41,7 @@
   border-top-left-radius: 7px;
 }
 */
-.container .container-brands {
+.container .container-models {
   width: 95%;
   padding: 30px;
   list-style: none;

@@ -19,10 +19,10 @@ export const requestFactory = (restApiUrl) => {
     const getAll = (table, brandId = '', modelId ='') => {
         let params = table + '/all/';
 
-        if(table == "cars"){
+        if((table == "cars") || (table == "models")){
             params = params + '?brandId=' + brandId + '&modelId=' + modelId;
         }
-        else if((table == "brands") || (table == "models")){
+        else if(table == "brands"){
             params = params + '?brandId=' + brandId;
         }
 

@@ -12,11 +12,13 @@ const CarCreate = React.lazy(() => import('./components/CarCreate'));
 const Brands = React.lazy(() => import('./components/Brands'));
 const BrandEdit = React.lazy(() => import('./components/BrandEdit'));
 const BrandCreate = React.lazy(() => import('./components/BrandCreate'));
+const Models = React.lazy(() => import('./components/Models'));
+const ModelEdit = React.lazy(() => import('./components/ModelEdit'));
+const ModelCreate = React.lazy(() => import('./components/ModelCreate'));
 const ErrorPage = React.lazy(() => import('./components/ErrorPage'));
 
 function AppNavigation() {
-    //const [cartItems, setCartItems] = useContext(CartContext);
-
+    
   return (
         <Suspense fallback={<div className="lazy-notification">Loading...</div>}>
           <Switch>
@@ -28,6 +30,9 @@ function AppNavigation() {
             <Route path="/brands" exact component={Brands} />
             <Route path="/brands/edit/:id" exact component={BrandEdit} />
             <Route path="/brands/create" exact component={BrandCreate} />
+            <Route path="/models" exact component={Models} />
+            <Route path="/models/edit/:id" exact component={ModelEdit} />
+            <Route path="/models/create" exact component={ModelCreate} />
         
             <Route path="/error" component={ErrorPage} />
             <Route component={ErrorPage} />

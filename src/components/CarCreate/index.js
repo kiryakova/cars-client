@@ -31,7 +31,7 @@ const CarCreate = ({
     //const [models, setModels] = useState([]);
     //const [currentBrandId, setCurrentBrandId] = useState('');
     const [currentHeaderItem, setCurrentHeaderItem] = useContext(PageContext);
-    setCurrentHeaderItem(2);
+    setCurrentHeaderItem(currentHeaderItem);
 
     const onSubmitHandler = async (e) => {
         e.preventDefault();

@@ -32,7 +32,7 @@ const CarEdit = ({
     //const [models, setModels] = useState([]);
     //const [currentBrandId, setCurrentBrandId] = useState('');
     const [currentHeaderItem, setCurrentHeaderItem] = useContext(PageContext);
-    setCurrentHeaderItem(2);
+    setCurrentHeaderItem(currentHeaderItem);
 
     useEffect(async() => {
         //console.log('2');

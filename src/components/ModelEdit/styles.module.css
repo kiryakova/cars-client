@@ -1,0 +1,12 @@
+.container-model-edit {
+  padding: 50px 0px;
+  display: flex;
+  justify-content: center;
+}
+
+.model-edit {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

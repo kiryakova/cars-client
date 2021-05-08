@@ -31,11 +31,12 @@ const Cars = ({
     const [hasCreateButton, setHasCreateButton] = useState(false);
     const [notification, setNotification] = useState('');
     const [currentHeaderItem, setCurrentHeaderItem] = useContext(PageContext);
-    setCurrentHeaderItem(2);
+    setCurrentHeaderItem(currentHeaderItem);
 
     useEffect(() => {
         try{
-            getCars(currentBrandItem, currentModelItem);
+            //getCars(currentBrandItem, currentModelItem);
+            getCars();
         }
         catch(e){
             setNotification('There are no cars!');
@@ -43,7 +44,7 @@ const Cars = ({
 
     }, [currentBrandItem, currentModelItem, isDeleted])
     
-    const getCars = (currentBrandItem) => {
+    const getCars = () => {
 
         requester.dataSet.getAll('cars', currentBrandItem, currentModelItem)
         .then(res => {

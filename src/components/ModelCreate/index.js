@@ -5,18 +5,16 @@ import requester from '../../services/rest-app-service';
 import { useEffect, useState, useContext } from 'react';
 import { timeoutRedirect } from '../../helpers/timeout-redirect';
 
-import FormCreateEditBrand from '../FormCreateEditBrand';
+import FormCreateEditModel from '../FormCreateEditModel';
 import Notification from '../Notification';
 
 import {PageContext} from '../../ContextWrapper';
 
-const BrandCreate = ({
+const ModelCreate = ({
     history
 }) => {
-    let [brand, setBrand] = useState({});
-    //const [carModel, setCarModel] = useState(null);
-    //const [carOwner, setCarOwner] = useState(null);
-    //const [carEngineType, setCarEngineType] = useState('');
+    let [model, setModel] = useState({});
+    const [modelBrand, setModelBrand] = useState(null);
     const [notification, setNotification] = useState('');
     const [errors, setErrors] = useState({});
     const [currentHeaderItem, setCurrentHeaderItem] = useContext(PageContext);
@@ -30,23 +28,23 @@ const BrandCreate = ({
         const { name } = e.target;
         
         const data = {
-            'name' : name.value
+            'name' : name.value,
+            'brand' : modelBrand
         };
 
-        createBrand(data);
+        createModel(data);
 
         e.stopPropagation();
         
     };
 
-    const createBrand = async (data) => {
-        //console.log(data);
+    const createModel = async (data) => {
         try{
-            await requester.dataSet.createEntity("brands", data)
+            await requester.dataSet.createEntity("models", data)
             .then((res) => {
                 if(res.status == 200){
-                    setNotification('The brand is created!');
-                    timeoutRedirect(history, `/brands`);
+                    setNotification('The model is created!');
+                    timeoutRedirect(history, `/models`);
                 }
                 else{
                     
@@ -58,23 +56,23 @@ const BrandCreate = ({
                     })
                     
                     //setNotification(res.message);
-                    setNotification('The brand is not created!');
+                    setNotification('The model is not created!');
                 }
             })
         }
         catch(e){
-            setNotification('The brand is not created!');
+            setNotification('The model is not created!');
         };
     }
 
     return (
-        <section className = {style['container-brand-create']}>
-            <article className = {style['brand-create']}>
+        <section className = {style['container-model-create']}>
+            <article className = {style['model-create']}>
                 <Notification message={notification} />
-                <FormCreateEditBrand formType="create" brand={brand} errors={errors} onSubmitHandler={onSubmitHandler}></FormCreateEditBrand>
+                <FormCreateEditModel formType="create" model={model} errors={errors} setModelBrand={setModelBrand} onSubmitHandler={onSubmitHandler}></FormCreateEditModel>
             </article>
         </section>
     );
 };
 
-export default BrandCreate;
+export default ModelCreate;
