@@ -1,0 +1,13 @@
+.container-brand-create {
+  padding: 50px 0px;
+  display: flex;
+  justify-content: center;
+}
+
+.brand-create {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+

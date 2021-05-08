@@ -1,0 +1,72 @@
+/*.product-edit-container {
+  padding: 50px 0px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}*/
+
+.brand-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  width: 25em;
+}
+
+.brand-form .label {
+  margin-top: 17px;
+  /*color: #4d4d4d;*/
+  color: #034a91;
+  font-weight: bolder;
+}
+
+.brand-form .input-field {
+    width: 100%;
+    margin: 3px 0px;
+    font-size: 18px;
+    color: #66B9F8;
+    padding: 5px 0px 5px 7px;
+    border: 1px solid #4d4d4d;
+    border-radius: 5px;
+    outline: none;
+}
+
+.brand-form span {
+  margin-bottom: 5px;
+  font-size: 16px;
+  color: rgb(170, 12, 12);
+}
+
+.brand-form .button-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content:space-between;
+  align-items: center;
+}
+
+.brand-form input[type='submit'],
+.brand-form a {
+  outline: none;
+  text-decoration: none;
+  text-align: center;
+  width: 48%;
+  border-radius: 3px;
+  
+  margin: 10px 0px;
+  cursor: pointer;
+  background: #36A7E8;
+  color: #FFFFFF;
+  font-weight: bold;
+  
+}
+
+.brand-form input[type='submit'] {
+  padding: 8.5px 15px;
+  font-size: 15px;
+}
+
+.brand-form a {
+  padding: 7px 15px;
+  font-size: 17px;
+}

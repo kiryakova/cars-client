@@ -1,0 +1,28 @@
+.section-error-page {
+    width: 80%;
+    margin: 30px auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.button-wrapper {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+}
+  
+.button-wrapper .button-back {
+    outline: none;
+    text-decoration: none;
+    text-align: center;
+    width: 45%;
+    border-radius: 3px;
+    padding: 7px 15px;
+    background: #aa0c0c;
+    color: #FFFFFF;
+    font-weight: bold;
+    margin: 10px 0px 0px 0px;
+    cursor: pointer;
+}

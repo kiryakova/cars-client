@@ -1,0 +1,17 @@
+section {
+    display: flex;
+    width: 80em;
+    align-items: center;
+}
+
+section > article {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+}
+
+.content,
+.image {
+    margin: 15px;
+    width: 45%;
+}

@@ -1,0 +1,13 @@
+.container-car-create {
+  padding: 50px 0px;
+  display: flex;
+  justify-content: center;
+}
+
+.car-create {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+

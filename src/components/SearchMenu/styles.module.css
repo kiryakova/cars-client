@@ -1,0 +1,15 @@
+.container-menu {
+  width: 70%;
+  padding: 30px;
+  list-style: none;
+  display: flex;
+  justify-content: space-around;
+  text-align: center;
+}
+
+.container-menu a {
+  text-decoration: none;
+  color: #36A7E8;
+  font-weight: bolder;
+}
+
