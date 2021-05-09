@@ -1,0 +1,13 @@
+.container-owner-create {
+  padding: 50px 0px;
+  display: flex;
+  justify-content: center;
+}
+
+.owner-create {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+

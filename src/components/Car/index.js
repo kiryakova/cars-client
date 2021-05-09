@@ -21,18 +21,9 @@ const Car = ({
     setIsDeleted
 }) => {
 
-    useEffect(() => {
-
-    }, [])
-
     const [carDetails, setCarDetails] = useState({});
     const [showDetails, setShowDetails] = useState(false);
     const [subNotification, setSubNotification] = useState('');
-    //const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
-
-    //const [show, setShow] = useState(false);
-    //const handleShow = () => setShow(true);
-    //const handleClose = () => setShow(false);
 
     const showCarById = (id) => {
         setSubNotification('');
@@ -40,9 +31,7 @@ const Car = ({
         requester.dataSet.getById('cars', id)
         .then(res => {
             setCarDetails(res);
-            //setNotification('');
             setShowDetails(true);
-            //console.log(res);
         })
         .catch(() => {
             setCarDetails({});
@@ -58,7 +47,6 @@ const Car = ({
 
     const deleteConfirmation = (id) => {
         setSubNotification('');
-        //setShowDeleteConfirmation(true);
         setIsDeleted(false);
         confirmAlert({
             title: 'Confirm delete',
@@ -89,13 +77,6 @@ const Car = ({
             setSubNotification('The car is not deleted!');
         });
     }
-
-    /*const editCar = (id) => {
-        setSubNotification('');
-        setShowDetails(false);
-
-
-    }*/
 
     return (
         <li className={style['car-item']}>

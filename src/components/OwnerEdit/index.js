@@ -8,29 +8,26 @@ import { timeoutRedirect } from '../../helpers/timeout-redirect';
 import Notification from '../Notification';
 
 import {PageContext} from '../../ContextWrapper';
-import FormCreateEditBrand from '../FormCreateEditBrand';
+import FormCreateEditOwner from '../FormCreateEditOwner';
 
-const BrandEdit = ({
+const OwnerEdit = ({
     match,
     history
 }) => {
-    let [brand, setBrand] = useState({});
+    let [owner, setOwner] = useState({});
     const [notification, setNotification] = useState('');
     const [errors, setErrors] = useState({});
-    //const [brands, setBrands] = useState([]);
-    //const [models, setModels] = useState([]);
-    //const [currentBrandId, setCurrentBrandId] = useState('');
     const [currentHeaderItem, setCurrentHeaderItem] = useContext(PageContext);
     setCurrentHeaderItem(currentHeaderItem);
 
     useEffect(async() => {
 
-        await requester.dataSet.getById('brands', match.params.id)
+        await requester.dataSet.getById('owners', match.params.id)
             .then(res => {
-                setBrand(res);
+                setOwner(res);
             })
             .catch(() => {
-                setNotification('The brand is not found!');
+                setNotification('The owner is not found!');
             });
 
     }, []);
@@ -40,26 +37,30 @@ const BrandEdit = ({
 
         setErrors({});
 
-        const { name } = e.target;
+        const { firstName, lastName, egn, address, phone } = e.target;
         
         const data = {
-            'name' : name.value
+            'firstName' : firstName.value,
+            'lastName' : lastName.value,
+            'egn' : egn.value,
+            'address' : address.value,
+            'phone' : phone.value
         };
 
-        editBrand(data, match.params.id);
+        editOwner(data, match.params.id);
 
         e.stopPropagation();
         
     };
 
-    const editBrand = async (data, id) => {
+    const editOwner = async (data, id) => {
         //console.log(data);
         try{
-            await requester.dataSet.updateEntity("brands", data, id)
+            await requester.dataSet.updateEntity("owners", data, id)
             .then((res) => {
                 if(res.status == 200){
-                    setNotification('The brand is edited!');
-                    timeoutRedirect(history, `/brands`);
+                    setNotification('The owner is edited!');
+                    timeoutRedirect(history, `/owners`);
                 }
                 else{
                     
@@ -69,24 +70,24 @@ const BrandEdit = ({
                         let elemArray = elem.split(":");
                         setErrors(oldErrors => ({[elemArray[0]]: `${elemArray[1]}`, ...oldErrors}));
                     })
-                    //console.log(errors);
-                    setNotification('The brand is not edited!');
+
+                    setNotification('The owner is not edited!');
                 }
             })
         }
         catch(e){
-            setNotification('The brand is not edited!');
+            setNotification('The owner is not edited!');
         };
     }
 
     return (
-        <section className = {style['container-car-edit']}>
-            <article className = {style['car-edit']}>
+        <section className = {style['container-owner-edit']}>
+            <article className = {style['owner-edit']}>
                 <Notification message={notification} />
-                <FormCreateEditBrand formType="edit" brand={brand} errors={errors} onSubmitHandler={onSubmitHandler}></FormCreateEditBrand>
+                <FormCreateEditOwner formType="edit" owner={owner} errors={errors} onSubmitHandler={onSubmitHandler}></FormCreateEditOwner>
             </article>
         </section>
     );
 };
 
-export default BrandEdit;
+export default OwnerEdit;

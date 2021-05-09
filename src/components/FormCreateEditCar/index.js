@@ -258,7 +258,7 @@ const FormCreateEditCar = ({
             <FormDropdown
                 name="owner" 
                 id="owner" 
-                label='Owner EGN' 
+                label='Owner' 
                 options={owners} 
                 selectedValueId={car.owner.id} 
                 canBeEmpty={canBeEmpty} 
@@ -271,7 +271,7 @@ const FormCreateEditCar = ({
             <FormDropdown
                 name="owner" 
                 id="owner" 
-                label='Owner EGN' 
+                label='Owner' 
                 options={owners} 
                 selectedValueId='' 
                 canBeEmpty={canBeEmpty} 

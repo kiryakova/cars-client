@@ -11,16 +11,23 @@ import FormDropdown from '../FormDropdown';
 const SearchMenu = ({
     currentBrandItem,
     searchBrandClickHandler,
-    searchModelClickHandler
+    searchModelClickHandler,
+    searchOwnerClickHandler
 }) => {
 
     const [brands, setBrands] = useState([]);
     const [models, setModels] = useState([]);
+    const [owners, setOwners] = useState([]);
 
     useEffect(() => {
-        getBrands();
+        if(searchBrandClickHandler != undefined)
+            getBrands();
+        
         if(searchModelClickHandler != undefined)
             getModels(currentBrandItem);
+
+        if(searchOwnerClickHandler != undefined)
+            getOwners();
         //(currentBrandItem != {} && currentBrandItem != null && currentBrandItem != '') ? getModels(currentBrandItem) : setModels([]);
     }, [currentBrandItem])
 
@@ -58,16 +65,36 @@ const SearchMenu = ({
 
     }
 
+    const getOwners = () => {
+        
+        requester.dataSet.getAll('owners')
+        .then(res => {
+            if(res.length > 0){
+                setOwners(res);
+            }
+            else{
+                setOwners([]);
+            }
+        })
+        .catch(() => {
+            console.log('There are no result from the server!');
+        });
+
+    }
+
     return (
             <article className={style['container-menu']}>
-                <FormDropdown
-                        name="brand" 
-                        id="brand" 
-                        label='Brand' 
-                        options={brands} 
-                        canBeEmpty={true} 
-                        handleChange={searchBrandClickHandler} 
+
+                {(searchBrandClickHandler != undefined) 
+                ? <FormDropdown
+                    name="brand" 
+                    id="brand" 
+                    label='Brand' 
+                    options={brands} 
+                    canBeEmpty={true} 
+                    handleChange={searchBrandClickHandler} 
                 />
+                : ''}
 
                 {(searchModelClickHandler != undefined) 
                 ? <FormDropdown
@@ -77,6 +104,17 @@ const SearchMenu = ({
                     options={models} 
                     canBeEmpty={true} 
                     handleChange={searchModelClickHandler} 
+                />
+                : ''}
+
+                {(searchOwnerClickHandler != undefined) 
+                ? <FormDropdown
+                    name="owner" 
+                    id="owner" 
+                    label='Owner' 
+                    options={owners} 
+                    canBeEmpty={true} 
+                    handleChange={searchOwnerClickHandler} 
                 />
                 : ''}
                 

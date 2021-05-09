@@ -15,6 +15,9 @@ const BrandCreate = React.lazy(() => import('./components/BrandCreate'));
 const Models = React.lazy(() => import('./components/Models'));
 const ModelEdit = React.lazy(() => import('./components/ModelEdit'));
 const ModelCreate = React.lazy(() => import('./components/ModelCreate'));
+const Owners = React.lazy(() => import('./components/Owners'));
+const OwnerEdit = React.lazy(() => import('./components/OwnerEdit'));
+const OwnerCreate = React.lazy(() => import('./components/OwnerCreate'));
 const ErrorPage = React.lazy(() => import('./components/ErrorPage'));
 
 function AppNavigation() {
@@ -33,6 +36,9 @@ function AppNavigation() {
             <Route path="/models" exact component={Models} />
             <Route path="/models/edit/:id" exact component={ModelEdit} />
             <Route path="/models/create" exact component={ModelCreate} />
+            <Route path="/owners" exact component={Owners} />
+            <Route path="/owners/edit/:id" exact component={OwnerEdit} />
+            <Route path="/owners/create" exact component={OwnerCreate} />
         
             <Route path="/error" component={ErrorPage} />
             <Route component={ErrorPage} />

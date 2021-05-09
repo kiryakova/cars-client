@@ -2,11 +2,11 @@ import style from './styles.module.css';
 
 import requester from '../../services/rest-app-service';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import { confirmAlert } from 'react-confirm-alert'; // Import
-import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css';
 
 
 import Notification from '../Notification';
@@ -16,37 +16,10 @@ const Brand = ({
     setIsDeleted
 }) => {
 
-    useEffect(() => {
-
-    }, [])
-
-    //const [carDetails, setCarDetails] = useState({});
-    //const [showDetails, setShowDetails] = useState(false);
     const [subNotification, setSubNotification] = useState('');
-
-    /*const showCarById = (id) => {
-        setSubNotification('');
-
-        requester.dataSet.getById('brands', id)
-        .then(res => {
-            //setCarDetails(res);
-            //setShowDetails(true);
-        })
-        .catch(() => {
-            //setCarDetails({});
-            setSubNotification('There are no details for this car!');
-        });
-
-    }*/
-
-    /*const hideCarById = () => {
-        setShowDetails(false);
-        setSubNotification('');
-    }*/
 
     const deleteConfirmation = (id) => {
         setSubNotification('');
-        //setShowDeleteConfirmation(true);
         setIsDeleted(false);
         confirmAlert({
             title: 'Confirm delete',

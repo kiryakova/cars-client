@@ -34,10 +34,10 @@ const FormDropdown = ({ handleChange, label, options, canBeEmpty, selectedValueI
                 options.map(x => 
                     (selectedValueId == x.id) 
                         ? <FormDropdownOption key={x.id} value={x.id} selected>
-                        {(label == 'Owner EGN') ? x.egn : x.name}
+                        {(label == 'Owner') ? x.egn : x.name}
                         </FormDropdownOption> 
                         :  <FormDropdownOption key={x.id} value={x.id}>
-                        {(label == 'Owner EGN') ? x.egn : x.name}
+                        {(label == 'Owner') ? x.egn : x.name}
                         </FormDropdownOption>
                 
                 )

@@ -16,7 +16,7 @@ export const requestFactory = (restApiUrl) => {
         }).then(x => x.json());
     };
 
-    const getAll = (table, brandId = '', modelId ='') => {
+    const getAll = (table, brandId = '', modelId ='', ownerId = '') => {
         let params = table + '/all/';
 
         if((table == "cars") || (table == "models")){
@@ -24,6 +24,9 @@ export const requestFactory = (restApiUrl) => {
         }
         else if(table == "brands"){
             params = params + '?brandId=' + brandId;
+        }
+        else if(table == "owners"){
+            params = params + '?ownerId=' + ownerId;
         }
 
         return fetch(restApiUrl + params, {

@@ -1,0 +1,73 @@
+.container {
+  width: 100%;
+  margin: 0px auto;
+  padding: 0px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  
+}
+
+.container .button-create-owner-wrapper button {
+  width: 100%;
+  padding: 7px 21px;
+  border-radius: 3px;
+  cursor: pointer;
+  background: #36A7E8;
+  color: #FFFFFF;
+  font-weight: bold;
+  font-size: 15px;
+}
+
+.container h3 {
+  position: absolute;
+  left: 50%;
+  top:50%;
+  transform: translate(-50%, -50%);
+}
+
+.container .container-owners {
+  width: 95%;
+  padding: 30px;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.message {
+  color: #36A7E8;
+  text-align: center;
+  /*margin: 200px 0px;*/
+}
+
+.button-wraper-prev-next {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.button-prev,
+.button-next {
+  width: 7%;
+  border-radius: 3px;
+  padding: 7px 15px;
+  background: #36A7E8;
+  color: #FFFFFF;
+  margin: 5px;
+  /*margin: 5px auto*/;
+  cursor: pointer;
+  font-weight: bolder;
+  text-align: center;
+}
+
+.button-prev::before{
+  content: "<< ";
+  font-weight: bolder;
+}
+
+.button-next::after{
+  content: " >>";
+  font-weight: bolder;
+}
