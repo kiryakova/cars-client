@@ -1,6 +1,8 @@
 # React App
 
-This project was created with [Create React App](https://github.com/facebook/create-react-app).
+This project was created with
+### npx create-react-app .
+
 
 ## Available Scripts
 
@@ -13,6 +15,7 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
+
 
 ## Before open the project in the development mode you should run:
 
@@ -33,12 +36,15 @@ You will also see any lint errors in the console.
 
 ## Website CARS REGISTER - cars registration
 
+
 ## List of all functionalities
-Home page
-Cars - all cars, find by brand and model, show details, edit car, delete car, add new car
-Brands - all brands, edit brand, delete brand, add new brand
-Models - all models, edit model, delete model, add new model
+
+Home page\
+Cars - all cars, find by brand and model, show details, edit car, delete car, add new car\
+Brands - all brands, edit brand, delete brand, add new brand\
+Models - all models, edit model, delete model, add new model\
 Owners - all owners, edit owner, delete owner, add new owner
+
 
 ## Preview:
 
