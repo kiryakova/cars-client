@@ -46,7 +46,7 @@ const Owner = ({
                 setIsDeleted(true);
             }
             else
-                setSubNotification('This owner can not be deleted!');
+                setSubNotification('This owner can not be deleted! There is a registered car of this owner!');
         })
         .catch(() => {
             setSubNotification('The owner is not deleted!');

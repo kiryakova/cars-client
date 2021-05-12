@@ -106,7 +106,7 @@ const Car = ({
             {(showDetails) ? (<article className={style['subrow']}>
             <div>Owner: {carDetails.owner.firstName} {carDetails.owner.lastName}</div>
             <div>EGN: {carDetails.owner.egn}</div>
-            <div>Address: {carDetails.owner.addres}</div>
+            <div>Address: {carDetails.owner.address}</div>
             <div>Phone: {carDetails.owner.phone}</div>
             </article>) 
             : ''}
