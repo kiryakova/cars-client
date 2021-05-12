@@ -1,7 +1,7 @@
 # React App
 
 This project was created with
-### npx create-react-app .
+### `npx create-react-app .`
 
 
 ## Available Scripts
@@ -50,13 +50,23 @@ Owners - all owners, edit owner, delete owner, add new owner
 
 <img src="https://res.cloudinary.com/stela-cloud/image/upload/v1620815814/cars/home.png" style="width: 100%;" alt=""/>
 
+
+
 <img src="https://res.cloudinary.com/stela-cloud/image/upload/v1620814826/cars/cars.png" style="width: 100%;" alt=""/>
+
+
 
 <img src="https://res.cloudinary.com/stela-cloud/image/upload/v1620816449/cars/car-create.png" style="width: 100%;" alt=""/>
 
+
+
 <img src="https://res.cloudinary.com/stela-cloud/image/upload/v1620816430/cars/car-edit.png" style="width: 100%;" alt=""/>
 
+
+
 <img src="https://res.cloudinary.com/stela-cloud/image/upload/v1620817350/cars/delete.png" style="width: 100%;" alt=""/>
+
+
 
 <img src="https://res.cloudinary.com/stela-cloud/image/upload/v1620817319/cars/delete-not-possible.png" style="width: 100%;" alt=""/>
 
