@@ -19,7 +19,6 @@ const FormCreateEditModel = ({
 
     const [brands, setBrands] = useState([]);
     const [canBeEmpty, setCanBeEmpty] = useState((formType == "edit" ? false : true));
-    //const [currentBrandId, setCurrentBrandId] = useState('');
 
     useEffect(() => {
         getBrands();
@@ -43,7 +42,6 @@ const FormCreateEditModel = ({
     }
 
     const searchBrandClickHandler = (id) => {
-        //setCurrentBrandId(id);
         requester.dataSet.getById("brands", id)
         .then(res => {
             setModelBrand(res);

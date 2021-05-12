@@ -3,16 +3,13 @@ import style from './styles.module.css';
 
 import getNavigationItems from '../../utils/navigation';
 
-import { useState, useContext } from 'react';
+import { useContext } from 'react';
 
 import NavigationItem from '../NavigationItem';
-import {PageContext, CartContext} from '../../ContextWrapper';
+import { PageContext } from '../../ContextWrapper';
 
 const Header = () => {
-
-    //const [currentHeaderItem, setCurrentHeaderItem] = useState(1);
     const [currentHeaderItem, setCurrentHeaderItem] = useContext(PageContext);
-    //const [cartItems] = useContext(CartContext);
     const HEADER_MENU_ITEMS = getNavigationItems();
 
     const menuItemClickHandler = (id) => {
@@ -24,7 +21,7 @@ const Header = () => {
             <nav className={style.nav}>
                 <div>
                 <div className={style['logo-wrapper']}>
-                    <img src={logo}/>
+                    <img src={logo} alt='' />
                 </div>
                 <span>Cars Register</span>
                 </div>

@@ -15,8 +15,7 @@
   margin: 10px 0px;
 }
 
-.owner-item article.row {  
-  /*box-shadow: 0 0 6px #868585;*/
+.owner-item article.row {
   box-shadow: 0 0 6px #034a91;
   border-radius: 3px;
   display: flex;
@@ -36,7 +35,6 @@
 .owner-item > article > article > div {
   width: 30%;
   padding: 5px 0px 5px 25px;
-  /*color: #36A7E8;*/
   color: #034a91;
   font-weight: bold;
 }

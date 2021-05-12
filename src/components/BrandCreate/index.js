@@ -2,7 +2,7 @@ import style from './styles.module.css';
 
 import requester from '../../services/rest-app-service';
 
-import { useEffect, useState, useContext } from 'react';
+import { useState, useContext } from 'react';
 import { timeoutRedirect } from '../../helpers/timeout-redirect';
 
 import FormCreateEditBrand from '../FormCreateEditBrand';
@@ -13,14 +13,12 @@ import {PageContext} from '../../ContextWrapper';
 const BrandCreate = ({
     history
 }) => {
-    let [brand, setBrand] = useState({});
-    //const [carModel, setCarModel] = useState(null);
-    //const [carOwner, setCarOwner] = useState(null);
-    //const [carEngineType, setCarEngineType] = useState('');
+    const [brand] = useState({});
     const [notification, setNotification] = useState('');
     const [errors, setErrors] = useState({});
     const [currentHeaderItem, setCurrentHeaderItem] = useContext(PageContext);
-    setCurrentHeaderItem(currentHeaderItem);
+    //setCurrentHeaderItem(currentHeaderItem);
+    setCurrentHeaderItem(3);
 
     const onSubmitHandler = async (e) => {
         e.preventDefault();
@@ -40,7 +38,6 @@ const BrandCreate = ({
     };
 
     const createBrand = async (data) => {
-        //console.log(data);
         try{
             await requester.dataSet.createEntity("brands", data)
             .then((res) => {
@@ -57,8 +54,11 @@ const BrandCreate = ({
                         setErrors(oldErrors => ({[elemArray[0]]: `${elemArray[1]}`, ...oldErrors}));
                     })
                     
-                    //setNotification(res.message);
-                    setNotification('The brand is not created!');
+                    if(res.message.indexOf('[') >= 0)
+                        setNotification('The brand is not created!');
+                    else
+                        setNotification('The brand is not created!' + res.message);
+                    //setNotification('The brand is not created!');
                 }
             })
         }

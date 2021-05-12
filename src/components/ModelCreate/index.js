@@ -2,7 +2,7 @@ import style from './styles.module.css';
 
 import requester from '../../services/rest-app-service';
 
-import { useEffect, useState, useContext } from 'react';
+import { useState, useContext } from 'react';
 import { timeoutRedirect } from '../../helpers/timeout-redirect';
 
 import FormCreateEditModel from '../FormCreateEditModel';
@@ -13,12 +13,13 @@ import {PageContext} from '../../ContextWrapper';
 const ModelCreate = ({
     history
 }) => {
-    let [model, setModel] = useState({});
+    const [model] = useState({});
     const [modelBrand, setModelBrand] = useState(null);
     const [notification, setNotification] = useState('');
     const [errors, setErrors] = useState({});
     const [currentHeaderItem, setCurrentHeaderItem] = useContext(PageContext);
-    setCurrentHeaderItem(currentHeaderItem);
+    //setCurrentHeaderItem(currentHeaderItem);
+    setCurrentHeaderItem(4);
 
     const onSubmitHandler = async (e) => {
         e.preventDefault();
@@ -42,7 +43,7 @@ const ModelCreate = ({
         try{
             await requester.dataSet.createEntity("models", data)
             .then((res) => {
-                if(res.status == 200){
+                if(res.status === 200){
                     setNotification('The model is created!');
                     timeoutRedirect(history, `/models`);
                 }
@@ -55,8 +56,11 @@ const ModelCreate = ({
                         setErrors(oldErrors => ({[elemArray[0]]: `${elemArray[1]}`, ...oldErrors}));
                     })
                     
-                    //setNotification(res.message);
-                    setNotification('The model is not created!');
+                    if(res.message.indexOf('[') >= 0)
+                        setNotification('The model is not created!');
+                    else
+                        setNotification('The model is not created!' + res.message);
+                    //setNotification('The model is not created!');
                 }
             })
         }

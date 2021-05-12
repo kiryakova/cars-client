@@ -2,16 +2,12 @@ import style from './styles.module.css';
 
 import requester from '../../services/rest-app-service';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
-//import Modal from 'react-bootstrap-modal';
-//import { Button } from 'react-dom';
-
-//import ModalDialog from '../ModalDialog';
 
 
-import { confirmAlert } from 'react-confirm-alert'; // Import
-import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css';
 
 
 import Notification from '../Notification';
@@ -57,8 +53,7 @@ const Car = ({
                 onClick: () => deleteCar(id)
               },
               {
-                label: 'No',
-                //onClick: () => alert('Click No')
+                label: 'No'
               }
             ]
         });
@@ -120,27 +115,4 @@ const Car = ({
     );
 }
 
-//<button onClick={() => editCar(carObj.id)}>Edit</button>
-
-//{(show) ? <ModalDialog show={show} setShow={setShow} /> : '' }
-
-/*{(showDeleteConfirmation) ? <div className={style['delete-confirmation']}>Do you realy want to delete the car with reg. number: {carObj.regNumber} ?</div> 
-: <div className={style['delete-confirmation-none']}></div>}*/
-
-/*
-<Modal show={show} onHide={handleClose}>
-                <Modal.Header closeButton>
-                <Modal.Title>Modal heading</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
-                <Modal.Footer>
-                <Button variant="secondary" onClick={handleClose}>
-                    Close
-                </Button>
-                <Button variant="primary" onClick={handleClose}>
-                    Save Changes
-                </Button>
-                </Modal.Footer>
-            </Modal>
-*/
 export default Car;

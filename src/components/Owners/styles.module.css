@@ -39,7 +39,6 @@
 .message {
   color: #36A7E8;
   text-align: center;
-  /*margin: 200px 0px;*/
 }
 
 .button-wraper-prev-next {
@@ -56,7 +55,6 @@
   background: #36A7E8;
   color: #FFFFFF;
   margin: 5px;
-  /*margin: 5px auto*/;
   cursor: pointer;
   font-weight: bolder;
   text-align: center;

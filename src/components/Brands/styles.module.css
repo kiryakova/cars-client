@@ -26,21 +26,7 @@
   top:50%;
   transform: translate(-50%, -50%);
 }
-/*
-.container .img-wrapper {
-  width: 45px;
-  height: 70px;
-  display: flex;
-  align-items: center;
-}
 
-.container img {
-  width: 100%;
-  object-fit: contain;
-  border-bottom-right-radius: 7px;
-  border-top-left-radius: 7px;
-}
-*/
 .container .container-brands {
   width: 95%;
   padding: 30px;

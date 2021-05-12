@@ -23,7 +23,7 @@ const FormCreateEditCar = ({
     const [models, setModels] = useState([]);
     const [owners, setOwners] = useState([]);
     const [engineTypes, setEngineTypes] = useState([]);
-    const [canBeEmpty, setCanBeEmpty] = useState((formType == "edit" ? false : true));
+    const [canBeEmpty] = useState((formType == "edit" ? false : true));
     const [currentBrandId, setCurrentBrandId] = useState('');
     const [currentModelId, setCurrentModelId] = useState('');
     const [currentOwnerId, setCurrentOwnerId] = useState('');
@@ -31,8 +31,6 @@ const FormCreateEditCar = ({
 
     useEffect(() => {
         getBrands();
-        //console.log(2);
-        //console.log(brands);
         getModels(currentBrandId);
         getOwners();
         getEngineTypes();
@@ -92,12 +90,8 @@ const FormCreateEditCar = ({
     const getEngineTypes = async () => {
         
         requester.dataSet.getEnumValues('cars', 'engine-types')
-        .then(res => {//console.log(res);
+        .then(res => {
             if(res.length > 0){
-                /*res = res.map(el => {
-                    return {id:el, name: el};
-                });*/
-
                 return res;
             }
             else{
@@ -129,7 +123,6 @@ const FormCreateEditCar = ({
         setCurrentOwnerId(id);
         requester.dataSet.getById("owners", id)
         .then(res => {
-            //console.log(res);
             setCarOwner(res);
         })
     }
@@ -292,14 +285,4 @@ const FormCreateEditCar = ({
     );
 }
 
-/*
-<FormInput
-                name="engineType"
-                type="text" 
-                defaultValue={car.engineType}
-                label='Engine Type'
-                required
-            />
-            <FormErrorField message={errors.engineType} />
-*/
 export default FormCreateEditCar;

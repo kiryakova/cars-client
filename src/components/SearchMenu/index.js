@@ -1,15 +1,14 @@
-//import {CATEGORIES_MENU_ITEMS } from './CategoriesMenuItems';
-
 import style from './styles.module.css';
 
 import requester from '../../services/rest-app-service';
 
-import { useEffect, useState, useContext } from 'react';
+import { useEffect, useState } from 'react';
 
 import FormDropdown from '../FormDropdown';
 
 const SearchMenu = ({
     currentBrandItem,
+    isDeleted,
     searchBrandClickHandler,
     searchModelClickHandler,
     searchOwnerClickHandler
@@ -20,16 +19,15 @@ const SearchMenu = ({
     const [owners, setOwners] = useState([]);
 
     useEffect(() => {
-        if(searchBrandClickHandler != undefined)
+        if(searchBrandClickHandler !== undefined)
             getBrands();
         
-        if(searchModelClickHandler != undefined)
+        if(searchModelClickHandler !== undefined)
             getModels(currentBrandItem);
 
-        if(searchOwnerClickHandler != undefined)
+        if(searchOwnerClickHandler !== undefined)
             getOwners();
-        //(currentBrandItem != {} && currentBrandItem != null && currentBrandItem != '') ? getModels(currentBrandItem) : setModels([]);
-    }, [currentBrandItem])
+    }, [currentBrandItem, isDeleted])
 
     const getBrands = () => {
         
@@ -85,7 +83,7 @@ const SearchMenu = ({
     return (
             <article className={style['container-menu']}>
 
-                {(searchBrandClickHandler != undefined) 
+                {(searchBrandClickHandler !== undefined) 
                 ? <FormDropdown
                     name="brand" 
                     id="brand" 
@@ -93,10 +91,11 @@ const SearchMenu = ({
                     options={brands} 
                     canBeEmpty={true} 
                     handleChange={searchBrandClickHandler} 
+                    fieldInSearchMenu={true}
                 />
                 : ''}
 
-                {(searchModelClickHandler != undefined) 
+                {(searchModelClickHandler !== undefined) 
                 ? <FormDropdown
                     name="model" 
                     id="model" 
@@ -104,10 +103,11 @@ const SearchMenu = ({
                     options={models} 
                     canBeEmpty={true} 
                     handleChange={searchModelClickHandler} 
+                    fieldInSearchMenu={true}
                 />
                 : ''}
 
-                {(searchOwnerClickHandler != undefined) 
+                {(searchOwnerClickHandler !== undefined) 
                 ? <FormDropdown
                     name="owner" 
                     id="owner" 
@@ -115,6 +115,7 @@ const SearchMenu = ({
                     options={owners} 
                     canBeEmpty={true} 
                     handleChange={searchOwnerClickHandler} 
+                    fieldInSearchMenu={true}
                 />
                 : ''}
                 

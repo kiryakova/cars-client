@@ -19,14 +19,8 @@ export const requestFactory = (restApiUrl) => {
     const getAll = (table, brandId = '', modelId ='', ownerId = '') => {
         let params = table + '/all/';
 
-        if((table == "cars") || (table == "models")){
+        if((table === "cars") || (table === "models")){
             params = params + '?brandId=' + brandId + '&modelId=' + modelId;
-        }
-        else if(table == "brands"){
-            params = params + '?brandId=' + brandId;
-        }
-        else if(table == "owners"){
-            params = params + '?ownerId=' + ownerId;
         }
 
         return fetch(restApiUrl + params, {
@@ -51,7 +45,7 @@ export const requestFactory = (restApiUrl) => {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(entityBody)
         }).then(x => {
-            if(x.status != 200)
+            if(x.status !== 200)
                 return x.json();
             else
                 return x;
@@ -62,13 +56,13 @@ export const requestFactory = (restApiUrl) => {
 
     const updateEntity = (table, entityBody, id) => {
         let params = table + '/update/?id=' + id;
-//console.log(entityBody);
+
         return fetch(restApiUrl + params, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(entityBody)
         }).then(x => {
-            if(x.status != 200)
+            if(x.status !== 200)
                 return x.json();
             else
                 return x;

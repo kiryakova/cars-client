@@ -2,36 +2,26 @@ import style from './styles.module.css';
 
 import requester from '../../services/rest-app-service';
 
-import { useEffect, useState, useContext } from 'react';
+import { useState, useContext } from 'react';
 import { timeoutRedirect } from '../../helpers/timeout-redirect';
 
-import { Link } from 'react-router-dom';
-
 import FormCreateEditCar from '../FormCreateEditCar';
-/*import FormInput from '../FormInput';
-import FormDropdown from '../FormDropdown';
-import FormErrorField from '../FormErrorField';
-*/
 import Notification from '../Notification';
-import { Fragment } from 'react';
 
 import {PageContext} from '../../ContextWrapper';
 
 const CarCreate = ({
     history
 }) => {
-    let [car, setCar] = useState({});
-    //const [carBrand, setCarBrand] = useState({});
+    const [car] = useState({});
     const [carModel, setCarModel] = useState(null);
     const [carOwner, setCarOwner] = useState(null);
     const [carEngineType, setCarEngineType] = useState('');
     const [notification, setNotification] = useState('');
     const [errors, setErrors] = useState({});
-    //const [brands, setBrands] = useState([]);
-    //const [models, setModels] = useState([]);
-    //const [currentBrandId, setCurrentBrandId] = useState('');
     const [currentHeaderItem, setCurrentHeaderItem] = useContext(PageContext);
-    setCurrentHeaderItem(currentHeaderItem);
+    //setCurrentHeaderItem(currentHeaderItem);
+    setCurrentHeaderItem(2);
 
     const onSubmitHandler = async (e) => {
         e.preventDefault();
@@ -41,8 +31,7 @@ const CarCreate = ({
         const { regNumber, engineVolume, enginePower, color } = e.target;
         
         const data = {
-            'regNumber' : regNumber.value,
-            //'brand': JSON.stringify(brand.value),
+            'regNumber' : regNumber.value.replace(' ', ''),
             'model' : carModel,
             'engineType' : carEngineType,
             'engineVolume' : engineVolume.value, 
@@ -51,18 +40,13 @@ const CarCreate = ({
             'owner' : carOwner,
         };
 
-        //console.log(data);
-
-        //if(Object.keys(errors).length == 0){
-            createCar(data);
-        //}
+        createCar(data);
 
         e.stopPropagation();
         
     };
 
     const createCar = async (data) => {
-        //console.log(data);
         try{
             await requester.dataSet.createEntity("cars", data)
             .then((res) => {
@@ -79,8 +63,11 @@ const CarCreate = ({
                         setErrors(oldErrors => ({[elemArray[0]]: `${elemArray[1]}`, ...oldErrors}));
                     })
                     
-                    //setNotification(res.message);
-                    setNotification('The car is not created!');
+                    if(res.message.indexOf('[') >= 0)
+                        setNotification('The car is not created!');
+                    else
+                        setNotification('The car is not created!' + res.message);
+                    //setNotification('The car is not created!');
                 }
             })
         }

@@ -20,11 +20,12 @@ const ModelEdit = ({
     const [notification, setNotification] = useState('');
     const [errors, setErrors] = useState({});
     const [currentHeaderItem, setCurrentHeaderItem] = useContext(PageContext);
-    setCurrentHeaderItem(currentHeaderItem);
+    //setCurrentHeaderItem(currentHeaderItem);
+    setCurrentHeaderItem(4);
 
-    useEffect(async() => {
+    useEffect(() => {
 
-        await requester.dataSet.getById('models', match.params.id)
+            requester.dataSet.getById('models', match.params.id)
             .then(res => {
                 setModel(res);
                 setModelBrand(res.brand);
@@ -57,7 +58,7 @@ const ModelEdit = ({
         try{
             await requester.dataSet.updateEntity("models", data, id)
             .then((res) => {
-                if(res.status == 200){
+                if(res.status === 200){
                     setNotification('The model is edited!');
                     timeoutRedirect(history, `/models`);
                 }
@@ -70,7 +71,11 @@ const ModelEdit = ({
                         setErrors(oldErrors => ({[elemArray[0]]: `${elemArray[1]}`, ...oldErrors}));
                     })
                     
-                    setNotification('The model is not edited!');
+                    if(res.message.indexOf('[') >= 0)
+                        setNotification('The model is not edited!');
+                    else
+                        setNotification('The model is not edited!' + res.message);
+                    //setNotification('The model is not edited!');
                 }
             })
         }

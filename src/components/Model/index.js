@@ -2,18 +2,19 @@ import style from './styles.module.css';
 
 import requester from '../../services/rest-app-service';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import { confirmAlert } from 'react-confirm-alert'; // Import
-import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
-
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css';
 
 import Notification from '../Notification';
 
 const Model = ({
     modelObj,
-    setIsDeleted
+    setIsDeleted,
+    currentModelItem,
+    setCurrentModelItem
 }) => {
 
     const [subNotification, setSubNotification] = useState('');
@@ -30,8 +31,7 @@ const Model = ({
                 onClick: () => deleteModel(id)
               },
               {
-                label: 'No',
-                //onClick: () => alert('Click No')
+                label: 'No'
               }
             ]
         });
@@ -40,11 +40,13 @@ const Model = ({
     const deleteModel = (id) => {
         requester.dataSet.deleteEntity('models', id)
         .then(res => {
-            if(res.status == 200){
+            if(res.status === 200){
+                if(currentModelItem !== '')
+                    setCurrentModelItem('');
                 setIsDeleted(true);
             }
             else
-                setSubNotification('The model is not deleted!');
+                setSubNotification('This model can not be deleted!');
         })
         .catch(() => {
             setSubNotification('The model is not deleted!');
@@ -56,7 +58,8 @@ const Model = ({
             <article className={style['row']}>
             <Notification message={subNotification} />
             <article className={style['subrow']}>
-            <div>{modelObj.name}</div>
+            <div>Brand: {modelObj.brand.name}</div>
+            <div>Model: {modelObj.name}</div>
             
             <div className={style['button-wrapper']}>
                 <Link to={`/models/edit/${modelObj.id}`}><button>Edit</button></Link>

@@ -17,11 +17,9 @@ const BrandEdit = ({
     let [brand, setBrand] = useState({});
     const [notification, setNotification] = useState('');
     const [errors, setErrors] = useState({});
-    //const [brands, setBrands] = useState([]);
-    //const [models, setModels] = useState([]);
-    //const [currentBrandId, setCurrentBrandId] = useState('');
     const [currentHeaderItem, setCurrentHeaderItem] = useContext(PageContext);
-    setCurrentHeaderItem(currentHeaderItem);
+    //setCurrentHeaderItem(currentHeaderItem);
+    setCurrentHeaderItem(3);
 
     useEffect(async() => {
 
@@ -53,11 +51,10 @@ const BrandEdit = ({
     };
 
     const editBrand = async (data, id) => {
-        //console.log(data);
         try{
             await requester.dataSet.updateEntity("brands", data, id)
             .then((res) => {
-                if(res.status == 200){
+                if(res.status === 200){
                     setNotification('The brand is edited!');
                     timeoutRedirect(history, `/brands`);
                 }
@@ -69,8 +66,12 @@ const BrandEdit = ({
                         let elemArray = elem.split(":");
                         setErrors(oldErrors => ({[elemArray[0]]: `${elemArray[1]}`, ...oldErrors}));
                     })
-                    //console.log(errors);
-                    setNotification('The brand is not edited!');
+
+                    if(res.message.indexOf('[') >= 0)
+                        setNotification('The brand is not edited!');
+                    else
+                        setNotification('The brand is not edited!' + res.message);
+                    //setNotification('The brand is not edited!');
                 }
             })
         }

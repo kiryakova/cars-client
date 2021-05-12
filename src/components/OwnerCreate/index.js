@@ -2,7 +2,7 @@ import style from './styles.module.css';
 
 import requester from '../../services/rest-app-service';
 
-import { useEffect, useState, useContext } from 'react';
+import { useState, useContext } from 'react';
 import { timeoutRedirect } from '../../helpers/timeout-redirect';
 
 import FormCreateEditOwner from '../FormCreateEditOwner';
@@ -13,12 +13,12 @@ import {PageContext} from '../../ContextWrapper';
 const OwnerCreate = ({
     history
 }) => {
-    let [owner, setOwner] = useState({});
+    const [owner] = useState({});
     const [notification, setNotification] = useState('');
     const [errors, setErrors] = useState({});
     const [currentHeaderItem, setCurrentHeaderItem] = useContext(PageContext);
-    setCurrentHeaderItem(5);
     //setCurrentHeaderItem(currentHeaderItem);
+    setCurrentHeaderItem(5);
 
     const onSubmitHandler = async (e) => {
         e.preventDefault();
@@ -45,7 +45,7 @@ const OwnerCreate = ({
         try{
             await requester.dataSet.createEntity("owners", data)
             .then((res) => {
-                if(res.status == 200){
+                if(res.status === 200){
                     setNotification('The owner is created!');
                     timeoutRedirect(history, `/owners`);
                 }
@@ -58,8 +58,11 @@ const OwnerCreate = ({
                         setErrors(oldErrors => ({[elemArray[0]]: `${elemArray[1]}`, ...oldErrors}));
                     })
                     
-                    //setNotification(res.message);
-                    setNotification('The owner is not created!');
+                    if(res.message.indexOf('[') >= 0)
+                        setNotification('The owner is not created!');
+                    else
+                        setNotification('The owner is not created!' + res.message);
+                    //setNotification('The owner is not created!');
                 }
             })
         }

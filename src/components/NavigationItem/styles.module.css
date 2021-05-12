@@ -47,7 +47,3 @@ li ul .list-item:not(:last-child) {
   object-fit: contain;
   border-radius: 7px;
 }
-
-.active-category-item {
-  /*color: rgb(170, 12, 12) !important;*/
-}

@@ -1,4 +1,4 @@
-import { useState, useEffect, createContext } from 'react';
+import { useState, createContext } from 'react';
 
 export const PageContext = createContext({
   currentHeaderItem: 1,
@@ -12,7 +12,6 @@ export const CartContext = createContext({
 
 const ContextWrapper = (props) => {
   
-  //const [user, setUser] = useState(null);
   const [currentHeaderItem, setCurrentHeaderItem] = useState(1);
   const [cartItems, setCartItems] = useState({});
 

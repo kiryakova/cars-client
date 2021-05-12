@@ -2,7 +2,7 @@ import style from './styles.module.css';
 
 import requester from '../../services/rest-app-service';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { confirmAlert } from 'react-confirm-alert';
@@ -13,11 +13,13 @@ import Notification from '../Notification';
 
 const Brand = ({
     brandObj,
-    setIsDeleted
+    setIsDeleted,
+    currentBrandItem,
+    setCurrentBrandItem
 }) => {
 
     const [subNotification, setSubNotification] = useState('');
-
+    
     const deleteConfirmation = (id) => {
         setSubNotification('');
         setIsDeleted(false);
@@ -27,7 +29,7 @@ const Brand = ({
             buttons: [
               {
                 label: 'Yes',
-                onClick: () => deleteBrand(id)
+                onClick: async () => await deleteBrand(id)
               },
               {
                 label: 'No',
@@ -40,11 +42,13 @@ const Brand = ({
     const deleteBrand = (id) => {
         requester.dataSet.deleteEntity('brands', id)
         .then(res => {
-            if(res.status == 200){
+            if(res.status === 200){
+                if(currentBrandItem !== '')
+                    setCurrentBrandItem('');
                 setIsDeleted(true);
             }
             else
-                setSubNotification('The brand is not deleted!');
+                setSubNotification('This brand can not be deleted!');
         })
         .catch(() => {
             setSubNotification('The brand is not deleted!');

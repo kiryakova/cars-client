@@ -1,13 +1,19 @@
 import styled from 'styled-components';
 
-//const firstColor = '#66B9F8';
 const firstColor = '#66B9F8';
 
 const secondColor = '#034a91';
 //const secondColor = '#4d4d4d';
 
-export const FormDropdownContainer = styled.div`
+export const FormDropdownContainerInSearchMenu = styled.div`
   width: 35%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+`;
+
+export const FormDropdownContainer = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: flex-start;

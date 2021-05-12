@@ -1,9 +1,7 @@
 import './services/rest-app-service';
 
-import React, {Suspense, useContext} from 'react';
-import {Redirect, Route, Switch} from 'react-router-dom';
-
-//import {CartContext} from './ContextWrapper';
+import React, {Suspense} from 'react';
+import {Route, Switch} from 'react-router-dom';
 
 const Home = React.lazy(() => import('./components/Home'));
 const Cars = React.lazy(() => import('./components/Cars'));
@@ -46,7 +44,5 @@ function AppNavigation() {
         </Suspense>
   );
 }
-
-/*<Route path="/cars/create" exact component={CarCreate} />*/
 
 export default AppNavigation;

@@ -22,6 +22,7 @@ const Models = () => {
     const [hasCreateButton, setHasCreateButton] = useState(false);
     const [notification, setNotification] = useState('');
     const [currentHeaderItem, setCurrentHeaderItem] = useContext(PageContext);
+    //setCurrentHeaderItem(currentHeaderItem);
     setCurrentHeaderItem(4);
 
     useEffect(() => {
@@ -40,7 +41,6 @@ const Models = () => {
         .then(res => {
 
             if(res.length > 0){
-                //console.log(res);
                 setModels(res);
                 setNotification('');
             }
@@ -83,7 +83,7 @@ const Models = () => {
         <div className={style.container}>
 
             <SearchMenu currentBrandItem={currentBrandItem} searchBrandClickHandler={searchBrandClickHandler} 
-                        searchModelClickHandler={searchModelClickHandler}
+                        searchModelClickHandler={searchModelClickHandler} isDeleted={isDeleted} 
             />
 
             {hasCreateButton
@@ -102,7 +102,7 @@ const Models = () => {
             <ul className={style['container-models']}>
                 
                 {models.slice(offset,limit).map((model) => 
-                    <Model key={model.id} modelObj={model} categoryId={currentBrandItem} setIsDeleted={setIsDeleted} />
+                    <Model key={model.id} modelObj={model} setIsDeleted={setIsDeleted} currentModelItem={currentModelItem} setCurrentModelItem={setCurrentModelItem} />
                 )}
             </ul>
             

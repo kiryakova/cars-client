@@ -1,14 +1,9 @@
-//import {CATEGORIES_MENU_ITEMS } from '../NavigationCategories/CategoriesMenuItems';
-
 import style from './styles.module.css';
 
 import requester from '../../services/rest-app-service';
 
 import { useEffect, useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
-//import {List} from 'react-virtualized';
-
-import Notification from '../Notification';
 
 import Brand from '../Brand';
 import SearchMenu from '../SearchMenu';
@@ -21,14 +16,13 @@ const Brands = () => {
     const [offset, setOffset] = useState(0);
     const [limit, setLimit] = useState(numRecordsPerPage);
     const [currentBrandItem, setCurrentBrandItem] = useState('');
-    
-    //const [currentModelItem, setCurrentModelItem] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [isDeleted, setIsDeleted] = useState(false);
     const [hasCreateButton, setHasCreateButton] = useState(false);
     const [notification, setNotification] = useState('');
     const [currentHeaderItem, setCurrentHeaderItem] = useContext(PageContext);
-    setCurrentHeaderItem(currentHeaderItem);
+    //setCurrentHeaderItem(currentHeaderItem);
+    setCurrentHeaderItem(3);
 
     useEffect(() => {
         try{
@@ -42,36 +36,46 @@ const Brands = () => {
     }, [currentBrandItem, isDeleted])
     
     const getBrands = () => {
-
-        requester.dataSet.getAll('brands', currentBrandItem)
-        .then(res => {
-
-            if(res.length > 0){
-                //console.log(res);
-                setBrands(res);
+        if(currentBrandItem != ''){
+            requester.dataSet.getById('brands', currentBrandItem)
+            .then(res => {
+                setBrands([res]);
                 setNotification('');
-            }
-            else{
-                setBrands([]);
-                setNotification('There are no such brand!');
-            }
-            
-            setIsLoading(true);
-            //setCurrentBrand(brand);
-            setCurrentBrandItem(currentBrandItem);
-            setHasCreateButton(true);
-        })
-        .catch(() => {
-            setIsLoading(true);
-            setNotification('There are no result from the server!');
-            //history.push(`/error`);
-        });
+                setIsLoading(true);
+                setCurrentBrandItem(currentBrandItem);
+                setHasCreateButton(true);
+            })
+            .catch(() => {
+                setIsLoading(true);
+                setNotification('There are no result from the server!');
+            });
+        }
+        else{
+            requester.dataSet.getAll('brands')
+            .then(res => {
 
+                if(res.length > 0){
+                    setBrands(res);
+                    setNotification('');
+                }
+                else{
+                    setBrands([]);
+                    setNotification('There are no such brand!');
+                }
+                
+                setIsLoading(true);
+                setCurrentBrandItem(currentBrandItem);
+                setHasCreateButton(true);
+            })
+            .catch(() => {
+                setIsLoading(true);
+                setNotification('There are no result from the server!');
+            });
+        }
     }
 
     const searchBrandClickHandler = (id) => {
         setCurrentBrandItem(id);
-        //console.log(currentBrandItem);
     }
 
     const showPrevious = () => {
@@ -87,7 +91,7 @@ const Brands = () => {
     return (
         <div className={style.container}>
 
-            <SearchMenu currentBrandItem={currentBrandItem} searchBrandClickHandler={searchBrandClickHandler} 
+            <SearchMenu currentBrandItem={currentBrandItem} searchBrandClickHandler={searchBrandClickHandler} isDeleted={isDeleted} 
             />
 
             {hasCreateButton
@@ -106,7 +110,7 @@ const Brands = () => {
             <ul className={style['container-brands']}>
                 
                 {brands.slice(offset,limit).map((brand) => 
-                    <Brand key={brand.id} brandObj={brand} setIsDeleted={setIsDeleted} />
+                    <Brand key={brand.id} brandObj={brand} setIsDeleted={setIsDeleted} currentBrandItem={currentBrandItem} setCurrentBrandItem={setCurrentBrandItem} />
                 )}
             </ul>
             

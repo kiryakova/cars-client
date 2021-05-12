@@ -5,15 +5,8 @@ import requester from '../../services/rest-app-service';
 import { useEffect, useState, useContext } from 'react';
 import { timeoutRedirect } from '../../helpers/timeout-redirect';
 
-import { Link } from 'react-router-dom';
-
 import FormCreateEditCar from '../FormCreateEditCar';
-/*import FormInput from '../FormInput';
-import FormDropdown from '../FormDropdown';
-import FormErrorField from '../FormErrorField';
-*/
 import Notification from '../Notification';
-import { Fragment } from 'react';
 
 import {PageContext} from '../../ContextWrapper';
 
@@ -22,21 +15,16 @@ const CarEdit = ({
     history
 }) => {
     let [car, setCar] = useState({});
-    //const [carBrand, setCarBrand] = useState({});
     const [carModel, setCarModel] = useState(null);
     const [carOwner, setCarOwner] = useState(null);
     const [carEngineType, setCarEngineType] = useState('');
     const [notification, setNotification] = useState('');
     const [errors, setErrors] = useState({});
-    //const [brands, setBrands] = useState([]);
-    //const [models, setModels] = useState([]);
-    //const [currentBrandId, setCurrentBrandId] = useState('');
     const [currentHeaderItem, setCurrentHeaderItem] = useContext(PageContext);
-    setCurrentHeaderItem(currentHeaderItem);
+    //setCurrentHeaderItem(currentHeaderItem);
+    setCurrentHeaderItem(2);
 
     useEffect(async() => {
-        //console.log('2');
-        //console.log(brands);
 
         await requester.dataSet.getById('cars', match.params.id)
             .then(res => {
@@ -44,9 +32,6 @@ const CarEdit = ({
                 setCarModel(res.model);
                 setCarOwner(res.owner);
                 setCarEngineType(res.engineType);
-                //console.log(carModel);
-                //return car;
-                //console.log("bbb");
             })
             .catch(() => {
                 setNotification('The car is not found!');
@@ -61,24 +46,8 @@ const CarEdit = ({
 
         const { regNumber, engineVolume, enginePower, color } = e.target;
         
-        //console.log(model.value);
-        /*await requester.dataSet.getById("models", model.value)
-        .then(res => {
-            //console.log(res);
-            setCarModel(res);
-        })
-        .then(console.log(carModel));
-        //console.log(carModel);
-        await requester.dataSet.getById("owners", owner.value)
-        .then(res => {
-            setCarOwner(res);
-            return carOwner;
-        })
-        .then(carOwner => console.log(carOwner));
-        */
         const data = {
-            'regNumber' : regNumber.value,
-            //'brand': JSON.stringify(brand.value),
+            'regNumber' : regNumber.value.replace(' ', ''),
             'model' : carModel,
             'engineType' : carEngineType,
             'engineVolume' : engineVolume.value, 
@@ -87,18 +56,13 @@ const CarEdit = ({
             'owner' : carOwner,
         };
 
-        //console.log(data);
-
-        //if(Object.keys(errors).length == 0){
-            editCar(data, match.params.id);
-        //}
+        editCar(data, match.params.id);
 
         e.stopPropagation();
         
     };
 
     const editCar = async (data, id) => {
-        //console.log(data);
         try{
             await requester.dataSet.updateEntity("cars", data, id)
             .then((res) => {
@@ -114,8 +78,12 @@ const CarEdit = ({
                         let elemArray = elem.split(":");
                         setErrors(oldErrors => ({[elemArray[0]]: `${elemArray[1]}`, ...oldErrors}));
                     })
-                    //console.log(errors);
-                    setNotification('The car is not edited!');
+
+                    if(res.message.indexOf('[') >= 0)
+                        setNotification('The car is not edited!');
+                    else
+                        setNotification('The car is not edited!' + res.message);
+                    //setNotification('The car is not edited!');
                 }
             })
         }

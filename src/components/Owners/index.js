@@ -16,12 +16,12 @@ const Owners = () => {
     const [offset, setOffset] = useState(0);
     const [limit, setLimit] = useState(numRecordsPerPage);
     const [currentOwnerItem, setCurrentOwnerItem] = useState('');
-    
     const [isLoading, setIsLoading] = useState(false);
     const [isDeleted, setIsDeleted] = useState(false);
     const [hasCreateButton, setHasCreateButton] = useState(false);
     const [notification, setNotification] = useState('');
     const [currentHeaderItem, setCurrentHeaderItem] = useContext(PageContext);
+    //setCurrentHeaderItem(currentHeaderItem);
     setCurrentHeaderItem(5);
 
     useEffect(() => {
@@ -35,28 +35,42 @@ const Owners = () => {
     }, [currentOwnerItem, isDeleted])
     
     const getOwners = () => {
-
-        requester.dataSet.getAll('owners', currentOwnerItem)
-        .then(res => {
-
-            if(res.length > 0){
-                setOwners(res);
+        if(currentOwnerItem != ''){
+            requester.dataSet.getById('owners', currentOwnerItem)
+            .then(res => {
+                setOwners([res]);
                 setNotification('');
-            }
-            else{
-                setOwners([]);
-                setNotification('There are no such owner!');
-            }
-            
-            setIsLoading(true);
-            setCurrentOwnerItem(currentOwnerItem);
-            setHasCreateButton(true);
-        })
-        .catch(() => {
-            setIsLoading(true);
-            setNotification('There are no result from the server!');
-        });
+                setIsLoading(true);
+                setCurrentOwnerItem(currentOwnerItem);
+                setHasCreateButton(true);
+            })
+            .catch(() => {
+                setIsLoading(true);
+                setNotification('There are no result from the server!');
+            });
+        }
+        else{
+            requester.dataSet.getAll('owners')
+            .then(res => {console.log(res);
 
+                if(res.length > 0){
+                    setOwners(res);
+                    setNotification('');
+                }
+                else{
+                    setOwners([]);
+                    setNotification('There are no such owner!');
+                }
+                
+                setIsLoading(true);
+                setCurrentOwnerItem(currentOwnerItem);
+                setHasCreateButton(true);
+            })
+            .catch(() => {
+                setIsLoading(true);
+                setNotification('There are no result from the server!');
+            });
+        }
     }
 
     const searchOwnerClickHandler = (id) => {
@@ -76,7 +90,7 @@ const Owners = () => {
     return (
         <div className={style.container}>
 
-            <SearchMenu currentOwnerItem={currentOwnerItem} searchOwnerClickHandler={searchOwnerClickHandler} 
+            <SearchMenu currentOwnerItem={currentOwnerItem} searchOwnerClickHandler={searchOwnerClickHandler} isDeleted={isDeleted} 
             />
 
             {hasCreateButton
@@ -95,7 +109,7 @@ const Owners = () => {
             <ul className={style['container-owners']}>
                 
                 {owners.slice(offset,limit).map((owner) => 
-                    <Owner key={owner.id} ownerObj={owner} setIsDeleted={setIsDeleted} />
+                    <Owner key={owner.id} ownerObj={owner} setIsDeleted={setIsDeleted} currentOwnerItem={currentOwnerItem} setCurrentOwnerItem={setCurrentOwnerItem} />
                 )}
             </ul>
             

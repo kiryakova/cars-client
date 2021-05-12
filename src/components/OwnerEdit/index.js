@@ -14,11 +14,12 @@ const OwnerEdit = ({
     match,
     history
 }) => {
-    let [owner, setOwner] = useState({});
+    const [owner, setOwner] = useState({});
     const [notification, setNotification] = useState('');
     const [errors, setErrors] = useState({});
     const [currentHeaderItem, setCurrentHeaderItem] = useContext(PageContext);
-    setCurrentHeaderItem(currentHeaderItem);
+    //setCurrentHeaderItem(currentHeaderItem);
+    setCurrentHeaderItem(5);
 
     useEffect(async() => {
 
@@ -54,11 +55,10 @@ const OwnerEdit = ({
     };
 
     const editOwner = async (data, id) => {
-        //console.log(data);
         try{
             await requester.dataSet.updateEntity("owners", data, id)
             .then((res) => {
-                if(res.status == 200){
+                if(res.status === 200){
                     setNotification('The owner is edited!');
                     timeoutRedirect(history, `/owners`);
                 }
@@ -71,7 +71,11 @@ const OwnerEdit = ({
                         setErrors(oldErrors => ({[elemArray[0]]: `${elemArray[1]}`, ...oldErrors}));
                     })
 
-                    setNotification('The owner is not edited!');
+                    if(res.message.indexOf('[') >= 0)
+                        setNotification('The owner is not edited!');
+                    else
+                        setNotification('The owner is not edited!' + res.message);
+                    //setNotification('The owner is not edited!');
                 }
             })
         }

@@ -41,32 +41,6 @@
   font-weight: bold;
 }
 
-/*
-.car-item h5, h6, p {
-  margin-bottom: 10px;
-}
-
-.car-item h5, h6 {
-  color: rgb(48, 47, 47);
-}
-
-.car-item h5 {
-  font-size: 18px;
-}
-
-.car-item h6, p {
-  font-size: 16px;
-}
-
-.car-item p {
-  color: rgb(61, 61, 61);
-}
-
-.car-item h6 span {
-  color: rgb(170, 12, 12);
-}
-*/
-
 .car-item .button-wrapper {
   width: 30%;
   display: flex;
